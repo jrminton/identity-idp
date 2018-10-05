@@ -61,5 +61,73 @@ describe MfaContext do
         end
       end
     end
+
+    describe '#enabled_two_factor_configurations_count' do
+      let(:count) { MfaContext.new(user).enabled_two_factor_configurations_count }
+
+      context 'no 2FA configurations' do
+        let(:user) { build(:user) }
+
+        it 'returns zero' do
+          expect(count).to eq 0
+        end
+      end
+
+      context 'with phone configuration' do
+        let(:user) { build(:user, :signed_up) }
+
+        it 'returns 1' do
+          expect(count).to eq 1
+        end
+      end
+
+      context 'with PIV/CAC configuration' do
+        let(:user) { build(:user, :with_piv_or_cac) }
+
+        it 'returns 1' do
+          expect(count).to eq 1
+        end
+      end
+
+      context 'with authentication app configuration' do
+        let(:user) { build(:user, :with_authentication_app) }
+
+        it 'returns 1' do
+          expect(count).to eq 1
+        end
+      end
+
+      context 'with webauthn configuration' do
+        let(:user) { build(:user, :with_webauthn) }
+
+        it 'returns 1' do
+          expect(count).to eq 1
+        end
+      end
+
+      context 'with authentication app and webauthn configurations' do
+        let(:user) { build(:user, :with_authentication_app, :with_webauthn) }
+
+        it 'returns 2' do
+          expect(count).to eq 2
+        end
+      end
+
+      context 'with authentication app and phone configurations' do
+        let(:user) { build(:user, :with_authentication_app, :signed_up) }
+
+        it 'returns 2' do
+          expect(count).to eq 2
+        end
+      end
+
+      context 'with PIV/CAC and phone configurations' do
+        let(:user) { build(:user, :with_piv_or_cac, :signed_up) }
+
+        it 'returns 2' do
+          expect(count).to eq 2
+        end
+      end
+    end
   end
 end

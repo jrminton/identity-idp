@@ -5,7 +5,7 @@ describe AccountReset::DeleteAccountController do
 
   describe '#delete' do
     it 'logs a good token to the analytics' do
-      user = create(:user)
+      user = create(:user, :signed_up)
       create_account_reset_request_for(user)
       grant_request(user)
 
@@ -16,6 +16,8 @@ describe AccountReset::DeleteAccountController do
         event: 'delete',
         success: true,
         errors: {},
+        mfa_methods: %i[sms voice],
+        account_age_in_days: 0,
       }
       expect(@analytics).
         to receive(:track_event).with(Analytics::ACCOUNT_RESET, properties)
@@ -33,6 +35,8 @@ describe AccountReset::DeleteAccountController do
         event: 'delete',
         success: false,
         errors: { token: [t('errors.account_reset.granted_token_invalid')] },
+        mfa_methods: [],
+        account_age_in_days: 0,
       }
       expect(@analytics).
         to receive(:track_event).with(Analytics::ACCOUNT_RESET, properties)
@@ -50,6 +54,8 @@ describe AccountReset::DeleteAccountController do
         event: 'delete',
         success: false,
         errors: { token: [t('errors.account_reset.granted_token_missing')] },
+        mfa_methods: [],
+        account_age_in_days: 0,
       }
       expect(@analytics).to receive(:track_event).
         with(Analytics::ACCOUNT_RESET, properties)
@@ -71,6 +77,8 @@ describe AccountReset::DeleteAccountController do
         event: 'delete',
         success: false,
         errors: { token: [t('errors.account_reset.granted_token_expired')] },
+        mfa_methods: [],
+        account_age_in_days: 2,
       }
       expect(@analytics).to receive(:track_event).
         with(Analytics::ACCOUNT_RESET, properties)
