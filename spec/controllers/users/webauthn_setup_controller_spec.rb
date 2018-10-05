@@ -72,7 +72,6 @@ describe Users::WebauthnSetupController do
         patch :confirm, params: params
 
         expect(response).to redirect_to(account_url)
-        expect(flash.now[:success]).to eq t('notices.webauthn_added')
       end
 
       it 'tracks the submission' do

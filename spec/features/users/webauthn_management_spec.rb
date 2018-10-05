@@ -19,7 +19,6 @@ feature 'Webauthn Management' do
       click_submit_default
 
       expect(current_path).to eq account_path
-      expect(page).to have_content t('notices.webauthn_added')
     end
 
     it 'gives an error if the challenge/secret is incorrect' do
@@ -66,7 +65,6 @@ feature 'Webauthn Management' do
       click_submit_default
 
       expect(current_path).to eq account_path
-      expect(page).to have_content t('notices.webauthn_added')
 
       click_link t('account.index.webauthn_add'), href: webauthn_setup_url
       expect(current_path).to eq webauthn_setup_path
