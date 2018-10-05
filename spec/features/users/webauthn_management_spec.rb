@@ -15,10 +15,10 @@ feature 'Webauthn Management' do
       click_link t('account.index.webauthn_add'), href: webauthn_setup_url
       expect(current_path).to eq webauthn_setup_path
 
-      mock_press_button_on_hardware_key_and_fill_in_name_field
-      click_submit_default
+      fill_in_nickname_and_click_continue
+      mock_press_button_on_hardware_key
 
-      expect(current_path).to eq account_path
+      expect(current_path).to eq webauthn_success_path
     end
 
     it 'gives an error if the challenge/secret is incorrect' do
@@ -29,8 +29,8 @@ feature 'Webauthn Management' do
       click_link t('account.index.webauthn_add'), href: webauthn_setup_url
       expect(current_path).to eq webauthn_setup_path
 
-      mock_press_button_on_hardware_key_and_fill_in_name_field
-      click_submit_default
+      fill_in_nickname_and_click_continue
+      mock_press_button_on_hardware_key
 
       expect(current_path).to eq account_path
       expect(page).to have_content t('errors.webauthn_setup.general_error')
@@ -61,16 +61,16 @@ feature 'Webauthn Management' do
       click_link t('account.index.webauthn_add'), href: webauthn_setup_url
       expect(current_path).to eq webauthn_setup_path
 
-      mock_press_button_on_hardware_key_and_fill_in_name_field
-      click_submit_default
+      fill_in_nickname_and_click_continue
+      mock_press_button_on_hardware_key
 
       expect(current_path).to eq account_path
 
       click_link t('account.index.webauthn_add'), href: webauthn_setup_url
       expect(current_path).to eq webauthn_setup_path
 
-      mock_press_button_on_hardware_key_and_fill_in_name_field
-      click_submit_default
+      fill_in_nickname_and_click_continue
+      mock_press_button_on_hardware_key
 
       expect(current_path).to eq webauthn_setup_path
       expect(page).to have_content t('errors.webauthn_setup.unique_name')

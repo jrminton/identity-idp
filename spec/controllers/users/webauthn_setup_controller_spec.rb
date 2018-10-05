@@ -71,7 +71,7 @@ describe Users::WebauthnSetupController do
       it 'processes a valid webauthn and redirects to account page' do
         patch :confirm, params: params
 
-        expect(response).to redirect_to(account_url)
+        expect(response).to redirect_to(webauthn_success_url)
       end
 
       it 'tracks the submission' do
