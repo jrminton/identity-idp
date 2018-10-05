@@ -34,7 +34,7 @@ en:
         (North America phone numbers only).
       voice_setup_info: Get security code via phone call (North America phone numbers
         only).
-      webauthn: Hardware security key
+      webauthn: Security key
       webauthn_info: Use your hardware security key instead of a security code.
     login_options_link_text: Choose another security option
     login_options_title: Select your security option

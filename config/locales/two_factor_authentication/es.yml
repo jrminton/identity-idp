@@ -37,7 +37,7 @@ es:
         a <strong>%{phone}</strong>. (Solo números de teléfono de América del Norte).
       voice_setup_info: Obtenga su código de seguridad a través de una llamada telefónica.
         (Solo números de teléfono de América del Norte).
-      webauthn: Clave de seguridad de hardware
+      webauthn: Clave de seguridad
       webauthn_info: Use su clave de seguridad de hardware en lugar de un código de
         seguridad.
     login_options_link_text: Elige otra opción de seguridad
